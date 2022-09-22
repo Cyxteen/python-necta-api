@@ -26,7 +26,7 @@ def details(year, school_number, exam_number, exam_type):
             else:
                 url = f"https://onlinesys.necta.go.tz/results/{year}/csee/{school_number}.htm"
     try:
-        url = 'http://127.0.0.1/necta/index2.html'
+        # url = 'http://127.0.0.1/necta/index2.html'
         # checks for response from the site if no then terminate after 3 tries
         response = requests.get(url, timeout=3)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -58,7 +58,7 @@ def details(year, school_number, exam_number, exam_type):
                     break
                 else:
                     if i == total_students:
-                        print(exam_number)
+                        # print(exam_number)
                         print('Exam number does not exist')
                         break
                     i+=1
@@ -102,7 +102,6 @@ def get_details(exam_number, i, soup):
     
     # converts the python dictionary into a json file
     jsonify_data = json.dumps(return_json)
-
     print(return_json)
 
 exam_number = '0072'

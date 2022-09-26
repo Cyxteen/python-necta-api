@@ -26,7 +26,7 @@ def details(year, school_number, exam_number, exam_type):
             else:
                 url = f"https://onlinesys.necta.go.tz/results/{year}/csee/{school_number}.htm"
     try:
-        url = 'http://127.0.0.1/necta/index2.html'
+        # url = 'http://127.0.0.1/necta/index2.html'
         # checks for response from the site if no then terminate after 3 tries
         response = requests.get(url, timeout=3)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -108,8 +108,8 @@ def get_details(exam_number, i, soup):
     jsonify_data = json.dumps(return_json)
     print(return_json)
 
-# exam_number = '0072'
-# school_number = 'S0110'
-# year = 2019
-# exam_type = 'acsee'
-# details(year, school_number, exam_number, exam_type)
+exam_number = '0072'
+school_number = 'S0110'
+year = 2019
+exam_type = 'csee'
+details(year, school_number, exam_number, exam_type)

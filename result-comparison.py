@@ -102,7 +102,7 @@ def compare(name_of_school: str, type_of_exam: str, start_year: int, end_year = 
                                                 total_students = total_students + total_withheld + total_absentees
                                         # for advanced results
                                 elif type_of_exam == 'acsee':
-                                        if new_year > 2017:
+                                        if new_year >= 2020:
                                                 # performance summary in table format
                                                 division_one = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][1]).text)
                                                 division_two = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][2]).text)
@@ -201,7 +201,7 @@ def compare(name_of_school: str, type_of_exam: str, start_year: int, end_year = 
                                                 # calculates all students that sat for the exam
                                                 # for school results later than >2014 (2019, 20 and 21)
                                                 if type_of_exam =='csee':
-                                                        if new_year >= 2019:
+                                                        if new_year >= 2020:
                                                                 # performance summary in table format
                                                                 division_one = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][1]).text)
                                                                 division_two = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][2]).text)
@@ -248,7 +248,7 @@ def compare(name_of_school: str, type_of_exam: str, start_year: int, end_year = 
                                                                 total_students = total_students + total_withheld + total_absentees
                                                         # for advanced results
                                                 elif type_of_exam == 'acsee':
-                                                        if new_year > 2017:
+                                                        if new_year > 2019:
                                                                 # performance summary in table format
                                                                 division_one = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][1]).text)
                                                                 division_two = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][2]).text)
@@ -313,4 +313,4 @@ def compare(name_of_school: str, type_of_exam: str, start_year: int, end_year = 
 
 # hapa hapa
 # call to action
-compare('minaki','acsee', 2022)
+compare('tabora boys','acsee', 2015, 2018)

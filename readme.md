@@ -10,7 +10,8 @@
 #### run the different functions from the folder
 #### to get a single student result
     python get-student.py
-#### the details are hard coded in the get-student.py
+#### the details are hard coded in the get-student.py(change to your preference)
+    #dummy data
     exam_number = '0051'
     school_number = 's0848'
     year = 2016

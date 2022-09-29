@@ -1,3 +1,9 @@
+"""
+______________________________________
+            PYTHON API Version 1.0.0
+--------------------------------------
+works with results from 2014
+"""
 from bs4 import BeautifulSoup
 import requests
 import json
@@ -7,6 +13,7 @@ def details(year, school_number, exam_number, exam_type):
     
     url = ''
     year = int(year)
+    school_number = school_number.lower()
     exam_number = exam_number.lower()
     exam_type = exam_type.lower()
     exam_number = f'{school_number}/{exam_number}'
@@ -33,46 +40,67 @@ def details(year, school_number, exam_number, exam_type):
         # check for 200 response code if yes page is ok else 'not found'
         if response.status_code == 200:
             # calculates all students that sat for the exam
-            range_1 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][1]).text)
-            range_2 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][2]).text)
-            range_3 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][3]).text)
-            range_4 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][4]).text)
-            range_5 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][5]).text)
+            # for school results later than >2014 (2019, 20 and 21)
+            if year > 2019:
+                range_1 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][1]).text)
+                range_2 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][2]).text)
+                range_3 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][3]).text)
+                range_4 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][4]).text)
+                range_5 = int((soup.find('table').find_all('tr')[3].find_all('p')[1:][5]).text)
+
+                total_students = range_1 + range_2 + range_3 + range_4 + range_5
+
+                # calculates number of all absentees
+                total_absentees = len(soup.body.findAll(text='ABS'))
+                
+                i=6
+                # extracts the first exam number
+                first_exam_number = soup.find_all('tr')[i].font.text
+                total_students = total_students + 5 + total_absentees
             
-            total_students = range_1 + range_2 + range_3 + range_4 + range_5
+            # for school results later than >2015 (2016, 17 and 18)
+            elif year > 2015:
+                range_1 = int(soup.find('h3').find('p').find('h3').text.split(' ')[2].strip(';'))
+                range_2 = int(soup.find('h3').find('p').find('h3').text.split(' ')[6].strip(';'))
+                range_3 = int(soup.find('h3').find('p').find('h3').text.split(' ')[10].strip(';'))
+                range_4 = int(soup.find('h3').find('p').find('h3').text.split(' ')[14].strip(';'))
+                range_5 = int(soup.find('h3').find('p').find('h3').text.split(' ')[18].strip(';'))
             
-            # calculates number of all absentees
-            total_absentees = len(soup.body.findAll(text='ABS'))
-            
-            i=6
-            # extracts the first exam number
-            first_exam_number = soup.find_all('tr')[i].font.text
-            # finish = soup.find_all('tr')[6].font.text[6:]
-            
-            total_students = total_students + 5 + total_absentees
-            # print(total_absentees)
+                # total number of all students(without absentees and withheld)
+                total_students = range_1 + range_2 + range_3 + range_4 + range_5
+                
+                # calculates number of all absentees
+                total_absentees = len(soup.body.findAll(text='ABS'))
+
+                # calculates number of all students who withdrew
+                total_withheld = len(soup.body.findAll(text='*W'))
+                
+                i=1
+                # extracts the first exam number
+                first_exam_number = soup.find_all('tr')[i].font.text
+
+                # total number of all students(with absentees and withheld)
+                total_students = total_students + total_withheld + total_absentees
+
             while i <= total_students:
-                if exam_number == soup.find_all('tr')[i].font.text:
-                    # print("inside")
+                if exam_number == (soup.find_all('tr')[i].font.text).lower():
                     get_details(exam_number, i, soup)
                     break
                 else:
                     if i == total_students:
-                        # print(exam_number)
                         print('Exam number does not exist')
                         break
                     i+=1
 
         else:
+            print(url)
             print("webpage not found")
     
     # checks for connection(internet) error
     except requests.ConnectionError:
-        print(url)
         print('internet connection is down')
     
     except requests.exceptions.ReadTimeout:
-        print(url)
         print('Not Found: The requested URL was not found on this server')
 
 def get_details(exam_number, i, soup):
@@ -108,8 +136,8 @@ def get_details(exam_number, i, soup):
     jsonify_data = json.dumps(return_json)
     print(return_json)
 
-exam_number = '0072'
-school_number = 'S0110'
-year = 2019
+exam_number = '0051'
+school_number = 's0848'
+year = 2016
 exam_type = 'csee'
 details(year, school_number, exam_number, exam_type)

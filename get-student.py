@@ -99,6 +99,7 @@ def details(year, school_number, exam_number, exam_type):
     # checks for connection(internet) error
     except requests.ConnectionError:
         print('internet connection is down')
+        print(url)
     
     except requests.exceptions.ReadTimeout:
         print('Not Found: The requested URL was not found on this server')

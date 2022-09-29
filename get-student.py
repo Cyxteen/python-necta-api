@@ -26,9 +26,7 @@ def details(year, school_number, exam_number, exam_type):
             url = f"https://onlinesys.necta.go.tz/results/{year}/acsee/results/{school_number}.htm"
 
     elif exam_type == "csee":
-            if int(year) == 2021:
-                url = f"https://matokeo.necta.go.tz/results2021/csee/results/{school_number}.htm"
-            elif int(year) > 2014:
+            if int(year) > 2014:
                 url = f"https://onlinesys.necta.go.tz/results/{year}/csee/results/{school_number}.htm" 
             else:
                 url = f"https://onlinesys.necta.go.tz/results/{year}/csee/{school_number}.htm"
@@ -130,16 +128,18 @@ def get_details(exam_number, i, soup):
         'exam_number' :  student_exam_number,
         'gender' : student_gender,
         'division' : student_division,
+        'division-point': student_points,
         'subjects': subjects
     }
     
     # converts the python dictionary into a json file
     jsonify_data = json.dumps(return_json)
-    print(return_json)
 
-exam_number = '0051'
-school_number = 's0848'
-year = 2016
+    print(json.dumps(return_json, indent=3))
+
+exam_number = '0056'
+school_number = 's0240'
+year = 2021
 exam_type = 'csee'
 # call to action
 details(year, school_number, exam_number, exam_type)

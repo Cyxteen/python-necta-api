@@ -313,4 +313,4 @@ def compare(name_of_school: str, type_of_exam: str, start_year: int, end_year = 
 
 # hapa hapa
 # call to action
-compare('tabora boys','acsee', 2015, 2018)
+compare('IKUNGI','acsee', 2015, 2018)

@@ -5,3 +5,4 @@
 
 ## USAGE
 #### first clone the repository
+    git clone https://github.com/Cyxteen/python-necta-api.git

@@ -3,5 +3,5 @@
 
 #### currently works with secondary(csee) results and advanced(acsee) results
 
-***
 ## USAGE
+### first clone the repository

@@ -141,4 +141,5 @@ exam_number = '0051'
 school_number = 's0848'
 year = 2016
 exam_type = 'csee'
+# call to action
 details(year, school_number, exam_number, exam_type)

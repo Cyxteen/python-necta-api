@@ -6,6 +6,10 @@
 ## USAGE
 #### first clone the repository
     git clone https://github.com/Cyxteen/python-necta-api.git
+    
+
+#### install all the requirements
+    python install -r requirement.txt
 
 #### run the different functions from the folder
 #### to get a single student result
